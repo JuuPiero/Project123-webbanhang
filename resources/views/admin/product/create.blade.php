@@ -31,12 +31,10 @@
                     <div class="col-sm-9">
                         <select multiple name="categoryIds[]" class="form-control mb-3 mb-3" required>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @if (count($category->children) > 0)
-                                    @foreach ($category->children as $child)
-                                        <option value="{{ $child->id }}">{{ '_' .  $child->name }}</option>
-                                    @endforeach
-                              @endif
+                                @include('admin.product._categoryCreateForm', [
+                                    'category' => $category, 
+                                    'name' => $category->name,
+                                ])
                             @endforeach
                         </select>
                     </div>
@@ -65,7 +63,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 form-control-label">Description</label>
                     <div class="col-sm-9">
-                        <textarea rows="6" name="description" type="text" class="form-control">
+                        <textarea rows="6" name="description" type="text" class="form-control" id="description">
                         </textarea>
                     </div>
                 </div>
@@ -80,13 +78,13 @@
                     </div>
                 </div>
                 <div class="title"><strong>Atributes</strong></div>
-                <input type="hidden" class="attributes-input" name="attributes" value="" />
                 <div class="form-group row ml-1 attribute">
                     <input type="text" placeholder="Name " class="mr-sm-3 form-control col-sm-5">
                     <input type="text" placeholder="Value" class=" mr-sm-3 form-control col-sm-5">
                 </div>
                 <button type="button" class="btn btn-primary add-new-attr-btn">Add new atribute</button>
-
+                
+                <input type="hidden" class="attributes-input" name="attributes" value="" />
                 <div class="line"></div>
                 <div class="form-group row">
                     <div class="col-sm-9 ml-auto">
@@ -103,4 +101,9 @@
 
 @section('scripts')
 <script src="{{ asset('custom/admin/js/addNewProductAttribute.js') }}"></script>
+<script src="{{ asset('assets/admin/ckeditor/ckeditor.js') }}"></script>
+<script>
+    CKEDITOR.replace('description'); 
+</script>
+
 @endsection

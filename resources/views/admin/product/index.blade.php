@@ -20,11 +20,10 @@
             <tr>
               <th>#</th>
               <th>Name</th>
-              <th>Image</th>
+              <th>Preview</th>
               <th>Category</th>
-
               <th>Price</th>
-              <th>Is Active</th>
+              <th>Active</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -32,19 +31,19 @@
             @foreach ($products as $product)
               <tr id="row-{{ $product->id }}">
                 <th scope="row">{{ $product->id }}</th>
-                <td>{{ $product->name }}</td>
+                <td class="w-25">{{ $product->name }}</td>
                 <td><img style="width: 80px; height: 40px; object-fit: cover" src="{{ asset('uploads/product/' . $product->images[0]->name) }}" alt="" srcset=""></td>
                 <td>
                   @foreach ($product->categories as $category)
                     {{ $category->name }}, 
                   @endforeach
                 </td>
-                <td>{{ $product->price}}</td>
-                <td>{{ $product->is_active ? 'true' : 'false'}}</td>
+                <td>{{ $product->price }}₫</td>
+                <td class="text-center"><span class="dot {{ $product->is_active ? 'dot-green' : 'dot-red'}}"></span></td>
                 <td>
                   <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-primary text-black">Edit</a>
                   {{-- <a href="{{ route('admin.product.delete', $product->id) }}" class="btn btn-secondary text-black delete-btn">Delete</a> --}}
-                  <button data-id="{{ $product->id}}" class="btn btn-secondary text-black delete-btn">Delete</button>
+                  <button data-id="{{ $product->id }}" class="btn btn-secondary text-black delete-btn">Delete</button>
                 </td>
               </tr>
             @endforeach

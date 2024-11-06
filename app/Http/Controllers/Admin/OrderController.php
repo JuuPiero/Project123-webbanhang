@@ -17,10 +17,14 @@ class OrderController extends Controller {
         $this->orderRepository = $orderRepository;
     }
 
-    public function index() {
-        $orders =  $this->orderRepository->paginate(10);
+    public function index(Request $request) {
+        $status = $request->status;
+        $orderStatus = OrderStatus::getStatus();
+        $orders =  $this->orderRepository->paginate(8, $status);
         return view('admin.order.index')->with([
-            'orders' => $orders
+            'orders' => $orders,
+            'orderStatus' => $orderStatus,
+            'statusFilter' => $status
         ]);
     }
 
@@ -28,11 +32,11 @@ class OrderController extends Controller {
         $order = Order::with('user')->with('order_items')->findOrFail($id);
         $orderItems = OrderItem::with('product')->where('order_id', $id)->get();
         $orderStatus = OrderStatus::getStatus();
-        // dd($orderItems[0]->product->attributes()->get());
+        
         return view('admin.order.detail')->with([
             'order' => $order,
             'orderItems' => $orderItems,
-            'orderStatus' => $orderStatus
+            'orderStatus' => $orderStatus,
         ]);
     }
 
@@ -42,7 +46,7 @@ class OrderController extends Controller {
         $order->update($data);
 
         return redirect()->back()->with([
-            'message' => 'xử lí thành công'
+            'message' => 'đã cập nhật trạng thái đơn hàng'
         ]);
 
     }

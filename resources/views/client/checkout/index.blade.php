@@ -72,21 +72,21 @@
                         <div class="row">
                             <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                                 <label for="input-firstname">First Name <span class="required-f">*</span></label>
-                                <input name="first_name" value="" id="input-firstname" type="text">
+                                <input name="first_name" value="{{Auth::user()->first_name}}" id="input-firstname" type="text">
                             </div>
                             <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                                 <label for="input-lastname">Last Name <span class="required-f">*</span></label>
-                                <input name="last_name" value="" id="input-lastname" type="text">
+                                <input name="last_name" value="{{Auth::user()->last_name}}" id="input-lastname" type="text">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                                 <label for="input-email">E-Mail <span class="required-f">*</span></label>
-                                <input name="email" value="" id="input-email" type="email">
+                                <input name="email" value="{{Auth::user()->email}}" id="input-email" type="email">
                             </div>
                             <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                                 <label for="input-telephone">Telephone <span class="required-f">*</span></label>
-                                <input name="phone_number" value="" id="input-telephone" type="tel">
+                                <input name="phone_number" value="{{Auth::user()->phone_number}}" id="input-telephone" type="tel">
                             </div>
                         </div>
                     </fieldset>
@@ -99,7 +99,7 @@
                             </div>
                             <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                                 <label for="input-address-1">Address <span class="required-f">*</span></label>
-                                <input name="address" value="" id="input-address-1" type="text">
+                                <input name="address" value="" id="input-address-1" type="text" {{Auth::user()->address}} >
                             </div>
                         </div>
                      
@@ -139,7 +139,6 @@
                                 <tr>
                                     <th class="text-left">Product Name</th>
                                     <th>Price</th>
-                                    {{-- <th>Size</th> --}}
                                     <th>Qty</th>
                                     <th>Subtotal</th>
                                 </tr>
@@ -147,10 +146,10 @@
                             <tbody>
                                 @foreach ($items as $item)
                                     <tr>
-                                        <td class="text-left">{{$item['product']->name}}</td>
-                                        <td>{{ $item['product']->price }}</td>
+                                        <td class="text-left">{{ $item['product']->name }}</td>
+                                        <td>{{ $item['product']->price }}₫</td>
                                         <td>{{ $item['quantity'] }}</td>
-                                        <td>{{ ($item['quantity'] * $item['product']->price )}}</td>
+                                        <td>{{ ($item['quantity'] * $item['product']->price )}}₫</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -161,7 +160,7 @@
                                 </tr> --}}
                                 <tr>
                                     <td colspan="3" class="text-right">Total</td>
-                                    <td>$ {{$totalPrice}}</td>
+                                    <td>{{$totalPrice}}₫</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -176,8 +175,8 @@
                         <div class="payment-accordion">
                             <div id="accordion" class="payment-section">
                                 <form >
-                                    <div class="form-group  required">
-                                        <select name="payment_method">
+                                    <div class="form-group required">
+                                        <select id="paymentMethod" name="payment_method">
                                             @foreach ($paymentMethods as $method)
                                                 <option value="{{$method}}">{{$method}}</option>
                                             @endforeach
@@ -187,18 +186,7 @@
                                         <input name="email" value="" id="input-email" type="email"> --}}
                                     </div>
                                 </form>
-
-                                {{-- <div class="card mb-2">
-                                    <div class="card-header">
-                                        <a class="card-link" data-toggle="collapse" href="#collapseOne">Direct Bank Transfer </a>
-                                    </div>
-                                    <div id="collapseOne" class="collapse" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <p class="no-margin font-15">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won't be shipped until the funds have cleared in our account.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card margin-15px-bottom border-radius-none">
+                                {{-- <div class="card margin-15px-bottom border-radius-none">
                                     <div class="card-header">
                                         <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree"> PayPal </a>
                                     </div>
@@ -247,7 +235,7 @@
                                                         <input type="date" name="exdate" class="form-control">
                                                     </div>
                                                     <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                                        <img class="padding-25px-top xs-padding-5px-top" src="assets/images/payment-img.jpg" alt="card" title="card" />
+                                                        <img class="padding-25px-top xs-padding-5px-top" src="{{asset('assets/client/images/payment-img.jpg')}}" alt="card" title="card" />
                                                     </div>
                                                 </div>
                                             </fieldset>
@@ -274,15 +262,20 @@
 <script>
     const checkoutFormEl = document.querySelector('.checkout-form')
     const checkoutBtnEl = document.querySelector('.checkout-btn')
+    const paymentMethodsEl = document.querySelector('#paymentMethod')
+
+    paymentMethodsEl.addEventListener('change', e => {
+        if(paymentMethodsEl.value == 'MOMO') {
+            checkoutFormEl.action = window.location.origin + '/checkout/momo'
+        }
+        else {
+            checkoutFormEl.action = window.location.href
+        }
+    })
 
     checkoutBtnEl.addEventListener('click', (e) => {
         e.preventDefault()
-
-
         checkoutFormEl.submit()
     })
-
-    // console.log(checkoutFormEl);
-
 </script>
 @endsection

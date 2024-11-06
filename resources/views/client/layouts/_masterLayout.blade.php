@@ -8,6 +8,13 @@
     @yield('content')
 </div>
 <!--End Body Content-->
+
+
+<!--Store Feature-->
+@include('client.layouts._storeFeature')
+<!--End Store Feature-->
+
+
 <!--Footer-->
 @include('client.layouts._footer')
 <!--End Footer-->

@@ -9,9 +9,10 @@
                 <div class="statistic-block block">
                 <div class="progress-details d-flex align-items-end justify-content-between">
                     <div class="title">
-                    <div class="icon"><i class="icon-user-1"></i></div><strong>New Clients</strong>
+                        <div class="icon"><i class="icon-user-1"></i></div>
+                        <strong>New Clients</strong>
                     </div>
-                    <div class="number dashtext-1">{{ count($users) }}</div>
+                    <div class="number dashtext-1">{{ $userCount }}</div>
                 </div>
                 <div class="progress progress-template">
                     <div role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-1"></div>
@@ -50,7 +51,7 @@
                     <div class="title">
                     <div class="icon"><i class="icon-paper-and-pencil"></i></div><strong>New Order</strong>
                     </div>
-                    {{-- <div class="number dashtext-3">{{ count($orders) }}</div> --}}
+                    <div class="number dashtext-3">{{ $newOrderCount }}</div>
                 </div>
                 <div class="progress progress-template">
                     <div role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-3"></div>

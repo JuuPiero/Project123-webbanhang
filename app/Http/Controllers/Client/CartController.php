@@ -28,7 +28,6 @@ class CartController extends Controller {
                 ]);
             }
         }
-        // dd($items);
         return view('client.cart.index')->with([
             'cart' => $cart,
             'items' => $items

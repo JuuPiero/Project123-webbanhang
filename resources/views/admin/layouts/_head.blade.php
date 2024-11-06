@@ -8,7 +8,8 @@
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/bootstrap/css/bootstrap.min.css') }}">
     <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="{{ asset('assets/admin/vendor/font-awesome/css/font-awesome.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/admin/vendor/font-awesome/css/font-awesome.min.css') }}"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <!-- Custom Font Icons CSS-->
     <link rel="stylesheet" href="{{ asset('assets/admin/css/font.css') }}">
     <!-- Google fonts - Muli-->
@@ -21,11 +22,7 @@
     <link rel="shortcut icon" href="{{ asset('assets/admin/img/favicon.ico') }}">
     {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
     <script src="{{ asset('assets/admin/vendor/jquery/jquery.min.js') }}"></script>
-    <style>
-        td, th {
-            align-content: center;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('custom/admin/css/styles.css') }}">
     <script>
         $.ajaxSetup({
             headers: {

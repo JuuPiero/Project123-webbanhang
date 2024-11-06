@@ -61,19 +61,19 @@
                                     </div>
                                 </td>
                                 <td class="cart__price-wrapper cart-flex-item">
-                                    <span class="money">$ {{$item['product']->price}}</span>
+                                    <span class="money">{{$item['product']->price}}₫</span>
                                 </td>
                                 <td class="cart__update-wrapper cart-flex-item text-right">
                                     <div class="cart__qty text-center">
                                         <div class="qtyField">
-                                            <a class="qtyBtn minus" href="javascript:void(0);"><i class="icon icon-minus"></i></a>
-                                            <input class="cart__qty-input qty" type="text" name="updates[]" id="qty" value="{{$item['quantity']}}" pattern="[0-9]*">
-                                            <a class="qtyBtn plus" href="javascript:void(0);"><i class="icon icon-plus"></i></a>
+                                            {{-- <a class="qtyBtn minus" href="javascript:void(0);"><i class="icon icon-minus"></i></a> --}}
+                                            <input class="cart__qty-input qty" type="text" readonly name="total_amout" id="qty" value="{{$item['quantity']}}" pattern="[0-9]*">
+                                            {{-- <a class="qtyBtn plus" href="javascript:void(0);"><i class="icon icon-plus"></i></a> --}}
                                         </div>
                                     </div>
                                 </td>
                                 <td class="text-right small--hide cart-price">
-                                    <div><span class="money">{{$item['quantity'] * $item['product']->price}}</span></div>
+                                    <div><span class="money">{{$item['quantity'] * $item['product']->price}}₫</span></div>
                                 </td>
                                 <td class="text-center small--hide"><a href="{{route('cart.remove', $item['product']->id)}}" class="btn btn--secondary cart__remove" title="Remove tem"><i class="icon icon anm anm-times-l"></i></a></td>
                             </tr>
@@ -87,7 +87,7 @@
                     </tfoot>
                 </table>
             
-                <div class="currencymsg">We processes all orders in USD. While the content of your cart is currently displayed in USD, the checkout will use USD at the most current exchange rate.</div>
+                <div class="currencymsg">We processes all orders in VNĐ. While the content of your cart is currently displayed in USD, the checkout will use VNĐ at the most current exchange rate.</div>
                 <hr>
            
             
@@ -97,7 +97,7 @@
             <div class="solid-border">
                 <div class="row mb-2" >
                     <span class="col-12 col-sm-6 cart__subtotal-title"><strong style="font-size: 1.3rem">Subtotal</strong></span>
-                    <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money" style="font-size: 1.3rem">$</span></span>
+                    <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money" style="font-size: 1.3rem">₫</span></span>
                 </div>
               {{-- <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div> --}}
               {{-- <p class="cart_tearm">
@@ -134,7 +134,7 @@
         console.log(el.textContent);
         subTotal += parseInt(el.textContent)
     });
-    subTotalEl.innerHTML = `$${subTotal}`
+    subTotalEl.innerHTML = `${subTotal}₫`
 
 </script>    
 @endsection

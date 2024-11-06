@@ -6,8 +6,13 @@
     <a href="{{ route('admin.invoice.show', $order->id) }}" class="btn btn-primary text-black mb-2">Show Invoice</a>
 
     <div class="block">
+        @if(session('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="title"><strong>Order-{{ $order->id }}</strong></div>
-        <p><strong>User order : </strong> {{  $order->user->email . ' - ' . $order->user->first_name . ' ' . $order->user->last_name}}</p>
+        <p><strong>User order : </strong> <a href="{{route('admin.user.detail', $order->user->id)}}">{{  $order->user->email . ' - ' . $order->user->first_name . ' ' . $order->user->last_name}}</a></p>
         <p><strong>Receiver Name : </strong> {{ $order->first_name . ' ' . $order->last_name }}</p>
         <p><strong>Phone Number : </strong> {{ $order->phone_number }}</p>
         <strong>Address :</strong>
@@ -15,7 +20,7 @@
         <strong>Note:</strong>
         <p>{{ $order->note }}</p>
         <h3>Total Amount</h3>
-        <p><strong>{{ $order->total_amount }}</strong>$</p>
+        <p><strong>{{ $order->total_amount }}</strong>₫</p>
         <div class="title"><strong>Order Items</strong></div>
         <div class="table-responsive"> 
             <table class="table table-striped table-hover">
@@ -41,7 +46,7 @@
                                 <td>{{ $item->product_name }}</td>
                             @endif
                             <td>{{ $item->quantity }}</td>
-                            <td>{{ $item->product_price }}</td>
+                            <td>{{ $item->product_price }}₫</td>
                         </tr>
                     @endforeach
                 </tbody>

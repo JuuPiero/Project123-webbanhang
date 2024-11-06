@@ -46,9 +46,6 @@
 }
 
 
-
-
-
 /* product detail tab  */
 .product-tabs {
     display: flex;
@@ -79,3 +76,4 @@
 .page-item.active .page-link {
     background-color: #141414;
 }
+

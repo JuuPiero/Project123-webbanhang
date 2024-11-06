@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head> 
-    {{-- <meta charset="utf-8"> --}}
+    <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Order Details</title>
@@ -46,20 +46,24 @@
         th {
             background-color: #f2f3f5;
         }
+        .total-amount-title,
+        .total-amount {
+            /* float: right; */
+            text-align: end;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Order-{{ $order->id }}</div>
-        <p><strong>User order : </strong>{{  $order->user->email . ' - ' . $order->user->first_name . ' ' . $order->user->last_name}}</p>
-        <p><strong>Receiver Name : </strong>{{ $order->first_name . ' ' . $order->last_name }}</p>
+        {{-- <p><strong>User order : </strong>{{  $order->user->email . ' - ' . $order->user->first_name . ' ' . $order->user->last_name}}</p> --}}
+        <p><strong>Customer : </strong>{{ $order->first_name . ' ' . $order->last_name }}</p>
         <p><strong>Phone Number : </strong>{{ $order->phone_number }}</p>
         <strong>Address :</strong>
         <p>{{ $order->address }}</p>
         <strong>Note:</strong>
         <p>{{ $order->note }}</p>
-        <h3>Total Amount</h3>
-        <p><strong>{{ $order->total_amount }}</strong>$</p>
+      
         <div class="title">Items</div>
         <table>
             <thead>
@@ -84,11 +88,13 @@
                             <td>{{ $item->product_name }}</td>
                         @endif
                         <td>{{ $item->quantity }}</td>
-                        <td>{{ $item->product_price }}</td>
+                        <td>{{ $item->product_price }}VND</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        <h3 class="total-amount-title">Total Amount:</h3>
+        <p class="total-amount"><strong>{{ $order->total_amount }}</strong>VND</p>
     </div>
 </body>
 </html>

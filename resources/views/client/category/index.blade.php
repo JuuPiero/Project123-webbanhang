@@ -21,89 +21,74 @@
                     <div class="widget-title"><h2>Categories</h2></div>
                     <div class="widget-content">
                         <ul class="sidebar_categories">
-                            <li class="level1 sub-level"><a href="#;" class="site-nav">TEst</a>
-                                <ul class="sublinks">
-                                    <li class="level2"><a href="#;" class="site-nav">Test</a></li>
-                                    <li class="level2"><a href="#;" class="site-nav">Test</a></li>
-                                    <li class="level2"><a href="#;" class="site-nav">Test</a></li>
-                                    <li class="level2"><a href="#;" class="site-nav">View All </a></li>
-                                </ul>
-                            </li>
-                            <li class="level1 sub-level"><a href="#;" class="site-nav">Test</a>
-                                <ul class="sublinks">
-                                    <li class="level2"><a href="#;" class="site-nav">Test</a></li>
-                                    <li class="level2"><a href="#;" class="site-nav">Test</a></li>
-                                    <li class="level2"><a href="#;" class="site-nav">Test</a></li>
-                                    <li class="level2"><a href="#;" class="site-nav">View All </a></li>
-                                </ul>
-                            </li>
-                            <li class="lvl-1"><a href="#;" class="site-nav">Collections</a></li>
-                            <li class="lvl-1"><a href="#;" class="site-nav">Sale</a></li>
-                            <li class="lvl-1"><a href="#;" class="site-nav">Page</a></li>
+                            @foreach ($categories as $category)
+                                <li class="lvl-1"><a href="{{route('home.category', $category->id)}}" class="site-nav">{{$category->name}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
                 <!--Categories-->
+
                 <!--Price Filter-->
                 <div class="sidebar_widget filterBox filter-widget">
                     <div class="widget-title">
                         <h2>Price</h2>
                     </div>
-                    <form action="#" method="post" class="price-filter">
+                    <form action="" method="GET" class="price-filter" >
                         <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                             <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
                             <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                             <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                         </div>
+                        {{-- <div class="row">
+                            <div class="col-10">
+                                <input type="range" name="price" min="0" max="100" style="background-color: red">
+                            </div>
+                        </div> --}}
                         <div class="row">
                             <div class="col-6">
-                                <p class="no-margin"><input id="amount" type="text"></p>
+                                <p class="no-margin">
+                                    <input id="amount" name="amount" type="text">
+                                </p>
                             </div>
                             <div class="col-6 text-right margin-25px-top">
                                 <button class="btn btn-secondary btn--small">filter</button>
                             </div>
                         </div>
+                    
+                        
+                        {{-- <input type="hidden" name="" /> --}}
+
                     </form>
                 </div>
                 <!--End Price Filter-->
-              
+            
                 <!--Brand-->
-                <div class="sidebar_widget filterBox filter-widget">
-                    <div class="widget-title"><h2>Brands</h2></div>
-                    <ul>
-                        <li>
-                          <input type="checkbox" value="allen-vela" id="check1">
-                          <label for="check1"><span><span></span></span>Test</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" value="oxymat" id="check3">
-                          <label for="check3"><span><span></span></span>Test</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" value="vanelas" id="check4">
-                          <label for="check4"><span><span></span></span>Test</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" value="pagini" id="check5">
-                          <label for="check5"><span><span></span></span>Test</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" value="Test" id="check6">
-                          <label for="check6"><span><span></span></span>Test</label>
-                        </li>
-                    </ul>
-                </div>
-                <!--End Brand-->
-               
-                <!--Banner-->
-                <div class="sidebar_widget static-banner">
-                    <img src="assets/images/side-banner-2.jpg" alt="" />
-                </div>
-                <!--Banner-->
+                @if (count($brands))
+                    <div class="sidebar_widget filterBox filter-widget">
+                        <div class="widget-title"><h2>List</h2></div>
+                        <ul>
+                            @foreach ($brands as $brand)
+                                <li>
+                                    {{-- <input class="" name="category_id" type="checkbox" value="{{$brand->id}}" id="check{{$brand->id}}"> --}}
+                                    <a class="pl-1" href="{{route('home.category', $brand->id)}}"><span><span></span></span>{{$brand->name}}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <!--End Brand-->
+                @endif
+                
                 <!--Information-->
                 <div class="sidebar_widget">
                     <div class="widget-title"><h2>Information</h2></div>
-                    <div class="widget-content"><p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p></div>
+                    <div class="widget-content">
+                        <p>
+                            {{-- {{ dd($category);
+                            // ->description 
+                            }} --}}
+                        </p>
+                    </div>
                 </div>
                 <!--end Information-->
             </div>
@@ -125,10 +110,10 @@
                                     <img src="{{asset('assets/client/images/list.jpg')}}" alt="List" />
                                 </a>
                             </div>
-                            <div class="col-4 col-md-4 col-lg-4 text-center filters-toolbar__item filters-toolbar__item--count d-flex justify-content-center align-items-center">
+                            <div class="col-4 col-md-4 col-lg-4 text-center filters-toolbar__item filters-toolbar__item--count d-flex justify-content-end align-items-center" >
                                 <span class="filters-toolbar__product-count">Showing: {{count($category->products)}}</span>
                             </div>
-                            <div class="col-4 col-md-4 col-lg-4 text-right">
+                            {{-- <div class="col-4 col-md-4 col-lg-4 text-right">
                                 <div class="filters-toolbar__item">
                                       <label for="SortBy" class="hidden">Sort</label>
                                       <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
@@ -138,12 +123,10 @@
                                         <option>Alphabetically, Z-A</option>
                                         <option>Price, low to high</option>
                                         <option>Price, high to low</option>
-                                        <option>Date, new to old</option>
-                                        <option>Date, old to new</option>
                                       </select>
                                       <input class="collection-header__default-sort" type="hidden" value="manual">
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
                     </div>
@@ -194,24 +177,27 @@
                                     <!-- End product name -->
                                     <!-- product price -->
                                     <div class="product-price">
-                                        <span class="old-price">$900.00</span>
-                                        <span class="price">{{$product->price}}</span>
+                                        {{-- <span class="old-price">$900.00</span> --}}
+                                        <span class="price">{{$product->price}}₫</span>
                                     </div>
                                     <!-- End product price -->
                                     
                                     <div class="product-review">
+                                        @for ($i = 1; $i <= $product->averageRating(); $i++)
+                                            <i class="font-13 fa fa-star"></i>
+                                        @endfor
+                                        @for ($i = 1; $i <= 5 - $product->averageRating(); $i++)
+                                            <i class="font-13 fa fa-star-o"></i>
+                                        @endfor
+                                        {{-- <i class="font-13 fa fa-star"></i>
                                         <i class="font-13 fa fa-star"></i>
-                                        <i class="font-13 fa fa-star"></i>
-                                        <i class="font-13 fa fa-star"></i>
-                                        <i class="font-13 fa fa-star-o"></i>
-                                        <i class="font-13 fa fa-star-o"></i>
+                                        <i class="font-13 fa fa-star-o"></i> --}}
                                     </div>
                                     <!-- Variant -->
                                     <ul class="swatches">
                                         @foreach ($product->images as $image)
                                             <li class="swatch medium rounded"><img src="{{asset('uploads/product/' . $image->name )}}" alt="image" /></li>
                                         @endforeach
-                                        
                                     </ul>
                                     <!-- End Variant -->
                                 </div>

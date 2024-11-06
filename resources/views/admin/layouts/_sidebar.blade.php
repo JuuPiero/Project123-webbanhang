@@ -10,7 +10,7 @@
     <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
     <ul class="list-unstyled">
         <li class="active"><a href="{{ route('admin') }}"> <i class="icon-home"></i>Home</a></li>
-        <li class=""><a href="{{ route('admin.user') }}"> <i class="icon-user"></i>Users</a></li>
+        <li class=""><a href="{{ route('admin.account') }}"> <i class="icon-user"></i>Account</a></li>
 
         <li>
             <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse">
@@ -33,23 +33,11 @@
         </li>
 
         <li>
-            <a href="#orderDropdown" aria-expanded="false" data-toggle="collapse">
-                <i class="icon-windows"></i> Orders 
-            </a>
-            <ul id="orderDropdown" class="collapse list-unstyled ">
-                <li><a href="{{ route('admin.order') }}">List all</a></li>
-                {{-- <li><a href="{{ route('admin.order.create') }}">Add new</a></li> --}}
-            </ul>
+            <a href="{{ route('admin.order') }}"><i class="icon-windows"></i>Orders</a>
         </li>
+        <li><a href="{{ route('admin.transaction') }}"><i class="icon-padnote"></i>Transaction </a></li>
+        <li><a href="{{ route('admin.rating') }}"><i class="icon-padnote"></i>Ratings </a></li>
+        <li><a href="{{ route('admin.setting') }}"><i class="icon-settings"></i>Settings </a></li>
 
-        <li>
-            <a href="#ratingDropdown" aria-expanded="false" data-toggle="collapse">
-                <i class="icon-windows"></i> Ratings 
-            </a>
-            <ul id="ratingDropdown" class="collapse list-unstyled ">
-                <li><a href="{{ route('admin.order') }}">List all</a></li>
-                {{-- <li><a href="{{ route('admin.order.create') }}">Add new</a></li> --}}
-            </ul>
-        </li>
     </ul>
 </nav>

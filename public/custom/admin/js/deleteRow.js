@@ -1,4 +1,5 @@
 async function deleteRow(id, table) {
+    let returnValue = false;
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -10,9 +11,11 @@ async function deleteRow(id, table) {
             type: "DELETE",
             dataType: "json",
             success: function (response) {
+                returnValue = true;
                 alert(response.message);
             }
         });
     }
+    return returnValue;
 }
 

@@ -22,11 +22,11 @@ class CategoryRepository implements IRepository {
     }
     public function paginate(int $perPage = 10, bool $onlyActive = true) {
         if($onlyActive) {
-            return  Category::where('parent_id', 0)->where('is_active', 1)
+            return Category::where('parent_id', 0)
+                    ->where('is_active', 1)
                     ->orderByDesc('updated_at')
                     ->paginate($perPage);
         }
-        
         return Category::where('parent_id', 0)
         ->orderByDesc('updated_at')
         ->paginate($perPage);;
@@ -87,7 +87,7 @@ class CategoryRepository implements IRepository {
     }
 
     public function delete($id) {
-         // Tìm category cha và tất cả category con của nó
+        // Tìm category cha và tất cả category con của nó
         $category = Category::with('children')->findOrFail($id);
         $category->products()->detach();
         
@@ -132,7 +132,8 @@ class CategoryRepository implements IRepository {
     }
 
     public function search($keyword) {
-        return Category::where('is_active', true)
+        return Category::
+        where('is_active', true)
         ->where('name', 'LIKE', '%' . $keyword . '%')
         // ->orderByDesc('updated_at')
         ->paginate(15);
@@ -141,6 +142,7 @@ class CategoryRepository implements IRepository {
     public function searchPrivate($keyword) {
         return Category::
         where('name', 'LIKE', '%' . $keyword . '%')
+        ->orWhere('id', $keyword)
         // ->orderByDesc('updated_at')
         ->paginate(15);
     }

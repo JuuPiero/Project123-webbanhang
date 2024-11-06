@@ -4,16 +4,16 @@
     @if(session('message'))
         <div class="newsletter-wrap" id="popup-container" style="display: block">
             <div id="popup-window">
-            <a class="btn closepopup"><i class="icon icon anm anm-times-l"></i></a>
+                <a class="btn closepopup"><i class="icon icon anm anm-times-l"></i></a>
             <!-- Modal content-->
-            <div class="display-table splash-bg">
-                <div class="display-table-cell width40"><img src="{{asset('assets/client/images/newsletter-img.jpg')}}" alt="Join Our Mailing List" title="Join Our Mailing List" /> </div>
-                <div class="display-table-cell width60 text-center">
-                    <div class="newsletter-left">
-                        <h1>{{session('message')}}</h1>
+                <div class="display-table splash-bg">
+                    <div class="display-table-cell width40"><img src="{{asset('assets/client/images/newsletter-img.jpg')}}" alt="Join Our Mailing List" title="Join Our Mailing List" /> </div>
+                    <div class="display-table-cell width60 text-center">
+                        <div class="newsletter-left">
+                            <h1>{{session('message')}}</h1>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     @endif
@@ -74,8 +74,8 @@
                                     <!-- End product name -->
                                     <!-- product price -->
                                     <div class="product-price">
-                                        <span class="old-price">$500.00</span>
-                                        <span class="price">{{ $product->price }}</span>
+                                        {{-- <span class="old-price">500.00₫</span>  --}}
+                                        <span class="price">{{ $product->price }}₫</span>
                                     </div>
                                     <!-- End product price -->
                                     

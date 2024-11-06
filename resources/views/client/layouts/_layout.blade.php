@@ -12,34 +12,6 @@
       {{-- @include('client.layouts._header') --}}
       @yield('entry')
       
-      <!--Body Content-->
-      {{-- <div id="page-content">
-        <!--Home slider-->
-      
-          <!--End Home slider-->
-          <!--Collection Tab slider-->
-          
-          <!--Collection Tab slider-->
-          
-          <!--Collection Box slider-->
-        
-          <!--End Collection Box slider-->
-          
-          <!--Logo Slider-->
-          <!--End Logo Slider-->
-          
-          <!--Featured Product-->
-          <!--End Featured Product-->
-          
-          <!--Store Feature-->
-        
-          <!--End Store Feature-->
-      </div> --}}
-      <!--End Body Content-->
-      
-      <!--Footer-->
-      {{-- @include('client.layouts._footer') --}}
-      <!--End Footer-->
       <!--Scoll Top-->
       <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
       <!--End Scoll Top-->
@@ -86,19 +58,19 @@
                                         <label class="header">Color: <span class="slVariant">Red</span></label>
                                         <div data-value="Red" class="swatch-element color red available">
                                           <input class="swatchInput" id="swatch-0-red" type="radio" name="option-0" value="Red">
-                                          <label class="swatchLbl color medium rectangle" for="swatch-0-red" style="background-image:url(assets/images/product-detail-page/variant1-1.jpg);" title="Red"></label>
+                                          <label class="swatchLbl color medium rectangle" for="swatch-0-red" style="background-image:url({{asset('assets/client/images/product-detail-page/variant1-1.jpg')}});" title="Red"></label>
                                         </div>
                                         <div data-value="Blue" class="swatch-element color blue available">
                                           <input class="swatchInput" id="swatch-0-blue" type="radio" name="option-0" value="Blue">
-                                          <label class="swatchLbl color medium rectangle" for="swatch-0-blue" style="background-image:url(assets/images/product-detail-page/variant1-2.jpg);" title="Blue"></label>
+                                          <label class="swatchLbl color medium rectangle" for="swatch-0-blue" style="background-image:url({{asset('assets/client/images/product-detail-page/variant1-2.jpg')}});" title="Blue"></label>
                                         </div>
                                         <div data-value="Green" class="swatch-element color green available">
                                           <input class="swatchInput" id="swatch-0-green" type="radio" name="option-0" value="Green">
-                                          <label class="swatchLbl color medium rectangle" for="swatch-0-green" style="background-image:url(assets/images/product-detail-page/variant1-3.jpg);" title="Green"></label>
+                                          <label class="swatchLbl color medium rectangle" for="swatch-0-green" style="background-image:url({{asset('assets/client/images/product-detail-page/variant1-3.jpg')}});" title="Green"></label>
                                         </div>
                                         <div data-value="Gray" class="swatch-element color gray available">
                                           <input class="swatchInput" id="swatch-0-gray" type="radio" name="option-0" value="Gray">
-                                          <label class="swatchLbl color medium rectangle" for="swatch-0-gray" style="background-image:url(assets/images/product-detail-page/variant1-4.jpg);" title="Gray"></label>
+                                          <label class="swatchLbl color medium rectangle" for="swatch-0-gray" style="background-image:url({{asset('assets/client/images/product-detail-page/variant1-4.jpg')}});" title="Gray"></label>
                                         </div>
                                       </div>
                                   </div>
@@ -194,6 +166,8 @@
       </div>
     </div> --}}
     <!-- End Newsletter Popup -->
+
+   
       
     <!-- Including Jquery -->
     @include('client.layouts._scripts')

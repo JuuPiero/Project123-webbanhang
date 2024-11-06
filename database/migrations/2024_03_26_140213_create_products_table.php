@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('sku')->unique()->nullable();
             $table->longText('description')->nullable();
             $table->decimal('price', 10, 2);
-            $table->integer('quantity'); // có thể bỏ
-            $table->boolean('is_active');
+            $table->integer('quantity')->default(0); // có thể bỏ
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Extensions\Order\OrderStatus;
+use App\Extensions\PaymentMethod\PaymentMethod;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Order;
@@ -22,14 +24,15 @@ class AdminController extends Controller {
     }
 
     public function index() {
-        $users = User::all();
+        $userCount = User::count();
         $products = Product::all();
         $categories = Category::all();
+        $newOrderCount = Order::where('status', OrderStatus::PENDING)->count();
         return view('admin.index')->with([
-            'users' => $users,
+            'userCount' => $userCount,
             'products' => $products,
             'categories' => $categories,
-            // 'orders' => $orders
+            'newOrderCount' => $newOrderCount
         ]);
     }
 
@@ -65,5 +68,7 @@ class AdminController extends Controller {
             'products' => $products
         ]);
     }
+
+   
 
 }

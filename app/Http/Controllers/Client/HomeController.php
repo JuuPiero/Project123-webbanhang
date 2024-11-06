@@ -20,7 +20,6 @@ class HomeController extends Controller {
     }
     public function index() {
         $banners = getBanners();
-        // dd($banners);
         // Cart::clean();
         $products = $this->productRepository->paginate();
         return view('client.home.index')->with([
@@ -31,9 +30,9 @@ class HomeController extends Controller {
 
     public function productDetail($id) {
         $product = $this->productRepository->find($id);
+        // dd($product->averageRating());
         $ratings = Rating::where('product_id', $id)->orderByDesc('created_at')->paginate(5);
         $suggests = $this->productRepository->getsuggestProducts($id);
-
         return view('client.product.detail')->with([
             'product' => $product,
             'ratings' => $ratings,
@@ -43,26 +42,35 @@ class HomeController extends Controller {
 
     public function category($id) {
         $category = $this->categoryRepository->find($id);
-        $products = $this->productRepository->getProductsByCategory($id);
-        // dd($product);
-        // dd($category->products[0]->images);
+        $categories = $this->categoryRepository->getRootCategories();
+        $products = $this->productRepository->getProductsByCategory($id, 12);
+
         return view('client.category.index')->with([
             'category' => $category,
-            'products' => $products
-        ]);
-    }
-
-    public function search(Request $request) {
-        // $categories = $this->categoryRepository->searchPrivate($request->keyword);
-        $products = $this->productRepository->search($request->keyword);
-        
-        return view('client.home.result')->with([
-            // 'categories' => $categories,
-            'products' => $products
+            'categories' => $categories,
+            'products' => $products,
+            'brands' => $category->children
         ]);
     }
 
     public function filter(Request $request) {
-
+        $categories = $this->categoryRepository->getRootCategories();
+        $data = $request->all();
+        $products = $this->productRepository->filter($data);
+        return view('client.filter.index')->with([
+            'categories' => $categories,
+            'products' => $products,
+        ]);
     }
+
+    public function search(Request $request) {
+        $products = $this->productRepository->search($request->keyword);
+        $categories = $this->categoryRepository->getRootCategories();
+        
+        return view('client.home.result')->with([
+            'products' => $products,
+            'categories' => $categories,
+        ]);
+    }
+
 }

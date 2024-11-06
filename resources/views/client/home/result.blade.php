@@ -13,27 +13,9 @@
                     <div class="widget-title"><h2>Categories</h2></div>
                     <div class="widget-content">
                         <ul class="sidebar_categories">
-                            <li class="level1 sub-level"><a href="#;" class="site-nav">Clothing</a>
-                                <ul class="sublinks">
-                                    <li class="level2"><a href="#;" class="site-nav">Men</a></li>
-                                    <li class="level2"><a href="#;" class="site-nav">Women</a></li>
-                                    <li class="level2"><a href="#;" class="site-nav">Child</a></li>
-                                    <li class="level2"><a href="#;" class="site-nav">View All Clothing</a></li>
-                                </ul>
-                            </li>
-                            <li class="level1 sub-level"><a href="#;" class="site-nav">Jewellery</a>
-                                <ul class="sublinks">
-                                    <li class="level2"><a href="#;" class="site-nav">Ring</a></li>
-                                    <li class="level2"><a href="#;" class="site-nav">Neckalses</a></li>
-                                    <li class="level2"><a href="#;" class="site-nav">Eaarings</a></li>
-                                    <li class="level2"><a href="#;" class="site-nav">View All Jewellery</a></li>
-                                </ul>
-                            </li>
-                            <li class="lvl-1"><a href="#;" class="site-nav">Shoes</a></li>
-                            <li class="lvl-1"><a href="#;" class="site-nav">Accessories</a></li>
-                            <li class="lvl-1"><a href="#;" class="site-nav">Collections</a></li>
-                            <li class="lvl-1"><a href="#;" class="site-nav">Sale</a></li>
-                            <li class="lvl-1"><a href="#;" class="site-nav">Page</a></li>
+                            @foreach ($categories as $category)
+                                <li class="lvl-1"><a href="{{route('home.category', $category->id)}}" class="site-nav">{{$category->name}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -60,34 +42,6 @@
                     </form>
                 </div>
                 <!--End Price Filter-->
-              
-                <!--Brand-->
-                <div class="sidebar_widget filterBox filter-widget">
-                    <div class="widget-title"><h2>Brands</h2></div>
-                    <ul>
-                        <li>
-                          <input type="checkbox" value="allen-vela" id="check1">
-                          <label for="check1"><span><span></span></span>Allen Vela</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" value="oxymat" id="check3">
-                          <label for="check3"><span><span></span></span>Oxymat</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" value="vanelas" id="check4">
-                          <label for="check4"><span><span></span></span>Vanelas</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" value="pagini" id="check5">
-                          <label for="check5"><span><span></span></span>Pagini</label>
-                        </li>
-                        <li>
-                          <input type="checkbox" value="monark" id="check6">
-                          <label for="check6"><span><span></span></span>Monark</label>
-                        </li>
-                    </ul>
-                </div>
-                <!--End Brand-->
                
                 <!--Banner-->
                 <div class="sidebar_widget static-banner">
@@ -130,8 +84,6 @@
                                         <option>Best Selling</option>
                                         <option>Alphabetically, A-Z</option>
                                         <option>Alphabetically, Z-A</option>
-                                        <option>Price, low to high</option>
-                                        <option>Price, high to low</option>
                                         <option>Date, new to old</option>
                                         <option>Date, old to new</option>
                                       </select>
@@ -166,8 +118,8 @@
                                     </form>
                                     <div class="button-set">
                                         <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view" data-toggle="modal" data-target="#content_quickview">
-                                                    <i class="icon anm anm-search-plus-r"></i>
-                                                </a>
+                                            <i class="icon anm anm-search-plus-r"></i>
+                                        </a>
                                         <div class="wishlist-btn">
                                             <a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist">
                                                 <i class="icon anm anm-heart-l"></i>
@@ -188,8 +140,8 @@
                                     <!-- End product name -->
                                     <!-- product price -->
                                     <div class="product-price">
-                                        <span class="old-price">$900.00</span>
-                                        <span class="price">{{$product->price}}</span>
+                                        <span class="old-price">0900.00₫</span>
+                                        <span class="price">{{$product->price}}₫</span>
                                     </div>
                                     <!-- End product price -->
                                     

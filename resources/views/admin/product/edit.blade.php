@@ -32,12 +32,11 @@
                     <div class="col-sm-9">
                         <select multiple name="categoryIds[]" class="form-control mb-3 mb-3" required>
                             @foreach ($categories as $category)
-                                <option {{in_array($category->id, $productCategories) ? 'selected' : ''}} value="{{ $category->id }}">{{ $category->name }}</option>
-                                @if (count($category->children) > 0)
-                                    @foreach ($category->children as $child)
-                                        <option {{in_array($child->id, $productCategories) ? 'selected' : ''}}  value="{{ $child->id }}">{{ '_' .  $child->name }}</option>
-                                    @endforeach
-                                @endif
+                                @include('admin.product._categoryUpdateForm', 
+                                [
+                                    'category' => $category, 
+                                    'name' => $category->name
+                                ])
                             @endforeach
                         </select>
                     </div>
@@ -49,7 +48,7 @@
                         <input name="images[]" type="file" class="form-control" multiple />
                     </div>
                     @foreach ($product->images as $image)
-                        <img style="width: 160px; height: 90px; object-fit: cover" src="{{ asset('uploads/product/' . $image->name) }}" alt="" srcset="">
+                        <img style="width: 160px; height: 90px; object-fit: cover" src="{{ asset('uploads/product/' . $image->name) }}" alt="" srcset="" />
                     @endforeach
                 </div>
 
@@ -57,7 +56,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 form-control-label">Price</label>
                     <div class="col-sm-9">
-                        <input value="{{ $product->price }}" name="price" type="number" placeholder="0 VNĐ" class="form-control">
+                        <input value="{{ $product->price }}" name="price" type="number" placeholder="0 VNĐ" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group row">
@@ -71,8 +70,9 @@
                 <div class="form-group row">
                     <label class="col-sm-3 form-control-label">Description</label>
                     <div class="col-sm-9">
-                        <textarea rows="6" name="description" type="text" class="form-control">
-                            {{ $product->description }}
+                        <textarea rows="6" name="description" type="text" class="form-control" id="description">
+                            {{-- {{ $product->description }} --}}
+                            {!! $product->description !!}
                         </textarea>
                     </div>
                 </div>
@@ -93,6 +93,7 @@
                     <div class="form-group row attribute ml-1">
                         <input type="text" value="{{$attribute->name}}" placeholder="Name " class="mr-sm-3 form-control col-sm-5">
                         <input type="text" value="{{$attribute->value}}" placeholder="Value" class=" mr-sm-3 form-control col-sm-5">
+                        {{-- <button class="btn btn-primary remove-attribute-btn">Remove</button> --}}
                     </div>
                 @endforeach
                 <button type="button" class="btn btn-primary add-new-attr-btn">Add new attribute</button>
@@ -112,4 +113,9 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('custom/admin/js/addNewProductAttribute.js') }}"></script>
+<script src="{{ asset('assets/admin/ckeditor/ckeditor.js') }}"></script>
+<script>
+    CKEDITOR.replace('description'); 
+    CKEDITOR.addCss('.cke_editable { background-color: #eee; }');
+</script>
 @endsection

@@ -35,8 +35,8 @@
                             </div>
                            
                             <div class="product-buttons">
-                                <a href="https://www.youtube.com/watch?v=93A2jOW5Mog" class="btn popup-video" title="View Video"><i class="icon anm anm-play-r" aria-hidden="true"></i></a>
-                                <a href="#" class="btn prlightbox" title="Zoom"><i class="icon anm anm-expand-l-arrows" aria-hidden="true"></i></a>
+                                {{-- <a href="https://www.youtube.com/watch?v=93A2jOW5Mog" class="btn popup-video" title="View Video"><i class="icon anm anm-play-r" aria-hidden="true"></i></a> --}}
+                                {{-- <a href="#" class="btn prlightbox" title="Zoom"><i class="icon anm anm-expand-l-arrows" aria-hidden="true"></i></a> --}}
                             </div>
                         </div>
                         <div class="lightboximages">
@@ -57,31 +57,25 @@
                                 
                                 <div class="product-review">
                                     <a class="reviewLink" href="#tab2">
-                                        <i class="font-13 fa fa-star"></i>
-                                        {{-- <i class="font-13 fa fa-star"></i>
-                                        <i class="font-13 fa fa-star"></i>
-                                        <i class="font-13 fa fa-star-o"></i>
-                                        <i class="font-13 fa fa-star-o"></i> --}}
-                                        <span class="spr-badge-caption">{{count($ratings)}} review(s)</span>
+                                        @for ($i = 1; $i <= $product->averageRating(); $i++)
+                                            <i class="font-13 fa fa-star"></i>
+                                        @endfor
+                                        @for ($i = 1; $i <= 5 - $product->averageRating(); $i++)
+                                            <i class="font-13 fa fa-star-o"></i>
+                                        @endfor
+                                    
+                                        <span class="spr-badge-caption">{{count($product->ratings)}} review(s)</span>
                                     </a>
                                 </div>
                             </div>
                             <p class="product-single__price product-single__price-product-template">
                                 <span class="visually-hidden">Regular price</span>
-                                <s id="ComparePrice-product-template"><span class="money">$600.00</span></s>
+                                <s id="ComparePrice-product-template"><span class="money">600.00₫</span></s>
                                 <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
                                     <span id="ProductPrice-product-template">
-                                        <span class="money">$ {{$product->price}}</span>
+                                        <span class="money">{{$product->price}}₫</span>
                                     </span>
                                 </span>
-                                <span class="discount-badge">
-                                    <span class="devider">|</span>
-                                    &nbsp;
-                                    <span>You Save</span>
-                                    <span id="SaveAmount-product-template" class="product-single__save-amount">
-                                        <span class="money">$100.00</span>
-                                    </span>
-                                </span>  
                             </p>
                         </div>
 
@@ -136,9 +130,16 @@
                 <li rel="tab2"><a class="tablink">Product Reviews</a></li>
             </ul>
             <div class="tab-container">
-                <div id="tab1" class="tab-content">
+                    <div id="tab1" class="tab-content">
+                    <div class="product-detail mb-4">
+                        @foreach ($product->attributes as $attribute)
+                            <div class="m-2 h3"><strong>{{$attribute->name}}</strong>: {{$attribute->value}}</div>
+                        @endforeach
+                    </div>
+
                     <div class="product-description rte mb-4">
-                        {{$product->description}}
+                        {!! $product->description !!}
+
                     </div>
                 </div>
                 <div id="tab2" class="tab-content">
@@ -175,7 +176,7 @@
                                         </form>
                                     @endauth
                                     @guest
-                                        <a href="" class="btn btn-primary">Login to write your review</a>
+                                        <a href="{{route('user.login')}}" class="btn btn-primary">Login to write your review</a>
                                     @endguest
                                 </div>
                                 <div class="spr-reviews">
@@ -261,8 +262,8 @@
                             <!-- End product name -->
                             <!-- product price -->
                             <div class="product-price">
-                                <span class="old-price">$500.00</span>
-                                <span class="price">$ {{$suggest->price}}</span>
+                                {{-- <span class="old-price">$500.00₫</span> --}}
+                                <span class="price">{{$suggest->price}}₫</span>
                             </div>
                             <!-- End product price -->
                             

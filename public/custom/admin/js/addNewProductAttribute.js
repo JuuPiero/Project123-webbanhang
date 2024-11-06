@@ -14,8 +14,11 @@ submitBtnEl.onclick = e => {
     attributeEls.forEach(attribute => {
         const name = attribute.querySelector('input').value
         const value = attribute.querySelector('input:last-child').value
-        if(name != '' && value != '') attributes[name] = value
+        if(name != '' && value != '') {
+            attributes[name] = value
+        }
     })
+    // set value of input product attributes
     attrInputEl.value = Object.keys(attributes).length !== 0 ? JSON.stringify(attributes) : ""
     formEl.submit()
 }

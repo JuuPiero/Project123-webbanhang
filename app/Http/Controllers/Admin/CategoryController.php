@@ -46,10 +46,11 @@ class CategoryController extends Controller
 
     public function edit($id) {
         $category = $this->categoryRepository->find($id);
-        $rootCategories = $this->categoryRepository->getRootCategories();
+        
+        $categories = Category::where('id', '!=', $id)->get();
         return view('admin.category.edit')->with([
             'category' => $category,
-            'rootCategories' => $rootCategories,
+            'categories' => $categories,
         ]);
     }
 

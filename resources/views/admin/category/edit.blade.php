@@ -27,9 +27,10 @@
             <div class="col-sm-9">
                 <select name="parent_id" class="form-control mb-3 mb-3" required>
                   <option value="0">root category</option>
-                  @foreach ($rootCategories as $rootCategory)
-                      <option {{$category->parent_id == $rootCategory->id ? 'selected' : ''}} value="{{ $rootCategory->id }}">{{ $rootCategory->name }}</option>
+                  @foreach ($categories as $parentCategory)
+                      <option {{$category->parent_id === $parentCategory->id ? 'selected' : ''}} value="{{ $parentCategory->id }}">{{ $parentCategory->name }}</option>
                   @endforeach
+              
                 </select>
             </div>
           </div>

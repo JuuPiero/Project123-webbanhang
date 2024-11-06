@@ -39,13 +39,13 @@ class ProductController extends Controller
 
     public function edit($id) {
         $product = $this->productRepository->find($id);
-        $categories = Category::with('children')->with('images')->where('parent_id', 0)->get();
-        // array of category's id of product to update
+        $categories = Category::where('parent_id', 0)->get();
+        // array of category's id of product
         $productCategories = [];
+
         foreach ($product->categories as $category) {
             $productCategories[] = $category->id;
         }
-        
         return view('admin.product.edit')->with([
             'product' => $product,
             'productCategories' => $productCategories,

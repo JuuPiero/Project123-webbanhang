@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Extensions\Order\OrderStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Rating;
 use App\Models\User;
@@ -34,18 +35,9 @@ class UserController extends Controller
     }
 
     public function register() {
-
         return view('client.user.register');
     }
     public function postRegister(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone_number' => 'required|string|unique:users',
-            // 'password' => 'required|string|min:8|confirmed',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
 
         $data = $request->all();
         $data['password'] = Hash::make($data['password']);
@@ -71,7 +63,10 @@ class UserController extends Controller
         if(Auth::attempt($credentials)) {
             $user = User::find(Auth::user()->id);
             $data = $request->all();
-            $data['password'] = Hash::make($data['new_password']);
+            if($data['new_password']) {
+                $data['password'] = Hash::make($data['new_password']);
+            }
+
             $user->update($data);
 
             return redirect()->back()->with([
@@ -85,16 +80,31 @@ class UserController extends Controller
     }
 
     public function purchase() {
-        $orders = $this->orderRepository->allOrderOfUser(Auth::user()->id);
-
-
-        return view('client.user.purchase')->with([
+        $orders = Auth::user()->orders()->paginate(8);
+        return view('client.order.purchase')->with([
             'orders' => $orders,
         ]);
     }
 
     public function orderDetail($id) {
+        $order = $this->orderRepository->find($id);
+        if($order->user->id !== Auth::user()->id) {
+            return redirect()->back();
+        }
+        return view('client.order.detail')->with([
+            'order' => $order,
+        ]);
+    }
 
+    public function cancelOrder($id) {
+        $order = $this->orderRepository->find($id);
+        if($order->user->id === Auth::user()->id) {
+            $order->update([
+                'status' => OrderStatus::CANCELED
+            ]);
+        }
+
+        return redirect()->back();
     }
 
 

@@ -7,7 +7,7 @@ function addToCart(id, quantity = 1) {
         dataType: "json",
         success: function (response) {
             alert(response.message);
-            if(cartCountEl) cartCountEl.innerHTML = parseInt(cartCountEl.innerHTML) + 1
+            if(cartCountEl) cartCountEl.innerHTML = parseInt(cartCountEl.innerHTML) + quantity
         }
     })
 }
@@ -27,6 +27,12 @@ function removeFromCart(id) {
 $(".btn-addto-cart").click(e => {
     e.preventDefault();
     const productId = e.target.getAttribute('data-id');
-    addToCart(productId)
+    if(document.querySelector('#Quantity')) {
+        const quantity = parseInt(document.querySelector('#Quantity').value)
+        addToCart(productId, quantity)
+    }
+    else {
+        addToCart(productId)
+    }
     console.log(productId);
 })

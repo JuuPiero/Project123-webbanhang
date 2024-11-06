@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('note')->nullable();
             $table->decimal('total_amount', 10, 2);
-            $table->string('status')->comment("Pending; Complete; Destroy");
+            $table->string('status')->comment("Pending; Complete; Destroy, ...");
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

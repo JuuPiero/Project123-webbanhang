@@ -28,8 +28,7 @@ class Product extends Model
     public function attributes() {
         return $this->hasMany(ProductAttribute::class);
     }
-    public function categories()
-    {
+    public function categories() {
         return $this->belongsToMany(Category::class);
     }
 
@@ -38,8 +37,15 @@ class Product extends Model
         return $this->belongsToMany(Order::class);
     }
 
-    public function ratings()
-    {
+    public function ratings() {
         return $this->hasMany(Rating::class);
     }
+
+    public function averageRating() {
+        return $this->ratings()->avg('rating');
+    }
+
+    // public function shortDescription() {
+    //     return $this->des
+    // }
 }

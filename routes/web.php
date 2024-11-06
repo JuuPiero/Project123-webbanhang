@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RatingController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Client\HomeController;
@@ -32,14 +35,17 @@ Route::prefix('/')->group(function() {
     Route::get('home/search', [HomeController::class, 'search'])->name('home.search');
     Route::get('category/{id}', [HomeController::class, 'category'])->name('home.category');
     Route::get('product/detail/{id}', [HomeController::class, 'productDetail'])->name('home.product.detail');
-    Route::get('product/filter', [HomeController::class, 'filter'])->name('home.product.filter');
+    // Route::get('product/filter', [HomeController::class, 'filter'])->name('home.product.filter');
+    Route::middleware('auth')->group(function() {
+        Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout');
+        Route::post('checkout', [CheckoutController::class, 'checkout'])->name('checkout.post');
 
+        Route::post('checkout/momo', [CheckoutController::class, 'momoCheckout'])->name('checkout.momo');
+        Route::get('checkout/momo/return', [CheckoutController::class, 'momoReturn'])->name('checkout.momo.return');
 
+    });
 });
-Route::middleware('auth')->group(function() {
-    Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout');
-    Route::post('checkout', [CheckoutController::class, 'checkout'])->name('checkout.post');
-});
+
 
 Route::prefix('user')->group(function() {
     Route::get('login', [UserController::class, 'login'])->name('user.login');
@@ -49,7 +55,9 @@ Route::prefix('user')->group(function() {
     Route::prefix('/')->middleware('auth')->group(function() {
         Route::get('logout', [UserController::class, 'logout'])->name('user.logout');
         Route::get('account/profile', [UserController::class, 'profile'])->name('user.profile');
-        Route::post('account/profile/update', [UserController::class, 'updateProfie'])->name('user.profile.update');
+        Route::post('profile/update', [UserController::class, 'updateProfie'])->name('user.profile.update');
+        Route::get('purchase/order/{id}', [UserController::class, 'orderDetail'])->name('user.purchase.order');
+        Route::get('purchase/order/cancel/{id}', [UserController::class, 'cancelOrder'])->name('user.cancel.order');
 
         Route::get('purchase', [UserController::class, 'purchase'])->name('user.purchase');
         Route::post('create/rating', [UserController::class, 'createRating'])->name('user.create.rating');
@@ -71,11 +79,21 @@ Route::prefix('admin')->group(function () {
         Route::get('', [AdminController::class, 'index'])->name('admin');
         Route::get('logout', [AdminController::class, 'logout'])->name('admin.logout');
         Route::get('search', [AdminController::class, 'search'])->name('admin.search');
+        // =================================================================
+        // Route::get('detail/{id}', [AdminController::class, 'detail'])->name('admin.detail');
+        // ===================================================================
+        Route::get('store/settings', [SettingController::class, 'index'])->name('admin.setting');
 
-        Route::get('users', [AccountController::class, 'users'])->name('admin.user');
+        Route::get('create', [AccountController::class, 'createAdmin'])->name('admin.create');
+        Route::post('store', [AccountController::class, 'storeAdmin'])->name('admin.store');
+          
+
+        Route::get('accounts', [AccountController::class, 'accounts'])->name('admin.account');
+        Route::delete('users/delete/{id}', [AccountController::class, 'deleteUser'])->name('admin.user.delete');
+
         Route::prefix('user')->group(function() {
-            Route::get('detail/{id}', [AccountController::class, 'detail'])->name('admin.user.detail');
-
+            Route::get('detail/{id}', [AccountController::class, 'userDetail'])->name('admin.user.detail');
+            Route::post('update/{id}', [AccountController::class, 'updateAccount'])->name('admin.user.update');
         });
 
         Route::prefix('products')->group(function() {
@@ -88,7 +106,6 @@ Route::prefix('admin')->group(function () {
 
             // Route::get('delete/{id}', [ProductController::class, 'delete'])->name('admin.product.delete');
             Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('admin.product.delete');
-
         });
 
         Route::prefix('categories')->group(function() {
@@ -106,13 +123,18 @@ Route::prefix('admin')->group(function () {
             Route::get('', [OrderController::class, 'index'])->name('admin.order');
             Route::get('detail/{id}', [OrderController::class, 'detail'])->name('admin.order.detail');
             Route::post('update/{id}', [OrderController::class, 'update'])->name('admin.order.update');
-            
         });
 
         Route::prefix('invoice')->group(function() {
             Route::get('show/{id}', [InvoiceController::class, 'show'])->name('admin.invoice.show');
             Route::get('create/{id}', [InvoiceController::class, 'create'])->name('admin.invoice.create');
         });
+
+        Route::prefix('ratings')->group(function() {
+            Route::get('', [RatingController::class, 'index'])->name('admin.rating');
+            Route::delete('delete/{id}', [RatingController::class, 'delete'])->name('admin.rating.delete');
+        });
+        Route::get('transactions', [TransactionController::class, 'index'])->name('admin.transaction');
     });
 });
 

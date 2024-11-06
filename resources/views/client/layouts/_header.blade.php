@@ -37,7 +37,7 @@
                     @endauth
                     @guest
                       <li><a href="{{ route('user.login') }}">Login</a></li>
-                      <li><a href="{{ route('user.register') }}">Create Account</a></li>
+                      <li><a href="{{ route('user.register') }}">Signup</a></li>
                     @endguest
                 </ul>
             </div>
