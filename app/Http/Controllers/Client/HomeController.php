@@ -64,7 +64,7 @@ class HomeController extends Controller {
     }
 
     public function search(Request $request) {
-        $products = $this->productRepository->search($request->keyword);
+        $products = $this->productRepository->search($request->keywords);
         $categories = $this->categoryRepository->getRootCategories();
         
         return view('client.home.result')->with([

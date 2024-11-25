@@ -35,9 +35,9 @@
         <li>
             <a href="{{ route('admin.order') }}"><i class="icon-windows"></i>Orders</a>
         </li>
-        <li><a href="{{ route('admin.transaction') }}"><i class="icon-padnote"></i>Transaction </a></li>
-        <li><a href="{{ route('admin.rating') }}"><i class="icon-padnote"></i>Ratings </a></li>
-        <li><a href="{{ route('admin.setting') }}"><i class="icon-settings"></i>Settings </a></li>
+        <li><a href="{{ route('admin.rating') }}"><i class="fas fa-star"></i>Ratings </a></li>
+        <li><a href="{{ route('admin.transaction') }}"><i class="fa-solid fa-rotate"></i></i>Transaction </a></li>
+        {{-- <li><a href="{{ route('admin.setting') }}"><i class="icon-settings"></i>Settings </a></li> --}}
 
     </ul>
 </nav>

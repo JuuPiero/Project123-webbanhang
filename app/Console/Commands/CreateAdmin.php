@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Hash;
 
 class CreateAdmin extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'admin:create {email} {password} {firstname?} {lastname?}';
 
     /**
@@ -22,9 +17,7 @@ class CreateAdmin extends Command
      */
     protected $description = 'create an admin account'; 
 
-    /**
-     * Execute the console command.
-     */
+    
     public function handle() {
         $email = $this->argument('email');
         $password = $this->argument('password');

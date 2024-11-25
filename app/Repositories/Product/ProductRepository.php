@@ -151,12 +151,21 @@ class ProductRepository implements IRepository {
         $product->delete();
     }
 
-    public function search($keyword) {
-        return Product::where('is_active', true)
-        ->where('name', 'LIKE', '%' . $keyword . '%')
-        ->where('is_active', true)
-        ->orderByDesc('updated_at')
+    public function search($keywords) {
+        $keywords = explode(' ', $keywords);
+        $products = Product::where('is_active', 1);
+        foreach ($keywords as $keyword) {
+            $products->where('name', 'like', '%' . $keyword . '%');
+        }
+        $products = $products->orderByDesc('updated_at')
         ->paginate(15);
+
+        return $products;
+        // return Product::where('is_active', true)
+        // ->where('name', 'LIKE', '%' . $keyword . '%')
+        // ->where('is_active', true)
+        // ->orderByDesc('updated_at')
+        // ->paginate(15);
     }
 
     public function searchPrivate($keyword) {

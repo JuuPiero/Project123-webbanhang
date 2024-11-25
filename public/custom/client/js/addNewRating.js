@@ -15,6 +15,7 @@ function addNewRating(productId, numStar, comment) {
         },
         success: function (response) {
             alert(response.message);
+
         }
     })
 }
@@ -28,4 +29,5 @@ formRatingElement.addEventListener('submit', (e) => {
     const comment = document.querySelector('.rating-comment').value
     // console.log(productId, numStar, comment);
     addNewRating(productId, numStar, comment)
+    formRatingElement.reset()
 })

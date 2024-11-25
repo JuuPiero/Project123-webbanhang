@@ -30,9 +30,8 @@ class OrderController extends Controller {
 
     public function detail($id) {
         $order = Order::with('user')->with('order_items')->findOrFail($id);
-        $orderItems = OrderItem::with('product')->where('order_id', $id)->get();
+        $orderItems = OrderItem::where('order_id', $id)->get();
         $orderStatus = OrderStatus::getStatus();
-        
         return view('admin.order.detail')->with([
             'order' => $order,
             'orderItems' => $orderItems,

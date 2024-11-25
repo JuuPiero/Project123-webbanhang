@@ -33,7 +33,6 @@
                     <td>{{ $transaction->amount }} VNĐ</td>
                     <td>{{ $transaction->status }}</td>
                     <td>{{ $transaction->payment_method }}</td>
-                    {{-- <td class="color-blue">{{$rating->comment}}</td> --}}
                     {{-- <td><a href="{{ route('admin.product.edit', $rating->product->id) }}">{{$rating->product->name}}</a></td> --}}
                     {{-- <td>{{$rating->rating}} <i class="fas fa-star" style="color: yellow"></i></td> --}}
                     <td>{{ $transaction->created_at }}</td>
