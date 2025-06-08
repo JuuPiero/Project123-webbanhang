@@ -40,7 +40,7 @@
              <!--Footer Links-->
             <div class="footer-top">
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
+                    {{-- <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
                         <h4 class="h4">Quick Shop</h4>
                         <ul>
                             <li><a href="#">Women</a></li>
@@ -49,7 +49,7 @@
                             <li><a href="#">Sportswear</a></li>
                             <li><a href="#">Sale</a></li>
                         </ul>
-                    </div>
+                    </div> --}}
                     <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
                         <h4 class="h4">Informations</h4>
                         <ul>

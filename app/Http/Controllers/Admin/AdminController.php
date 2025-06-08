@@ -13,6 +13,7 @@ use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Product\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller {
     private $productRepository;
@@ -28,11 +29,38 @@ class AdminController extends Controller {
         $products = Product::all();
         $categories = Category::all();
         $newOrderCount = Order::where('status', OrderStatus::PENDING)->count();
+
+
+        $revenues = Order::selectRaw('DATE(created_at) as day, SUM(total_amount) as sum_amount')
+        ->where('status', 1) 
+        ->groupByRaw('DATE(created_at)') 
+        ->orderByDesc('day') 
+        ->get();
+        
+        $ordersByStatus = DB::table('orders')
+        ->select('status', DB::raw('COUNT(*) as total_order'))
+        ->groupBy('status')
+        ->get();
+
+        $ordersByUser = DB::table('orders')
+        ->join('users', 'orders.user_id', '=', 'users.id') // Nối bảng orders và users
+        ->select(
+            'users.email as email', 
+            DB::raw('COUNT(orders.id) as total_order'), // Đếm số lượng đơn hàng
+            DB::raw('SUM(orders.total_amount) as total_amount') // Tính tổng tiền
+        )
+        ->groupBy('users.id', 'users.email') // Nhóm theo user_id và tên user
+        ->get();
+
+
         return view('admin.index')->with([
             'userCount' => $userCount,
             'products' => $products,
             'categories' => $categories,
-            'newOrderCount' => $newOrderCount
+            'newOrderCount' => $newOrderCount,
+            'revenues' => $revenues,
+            'ordersByStatus' => $ordersByStatus,
+            'ordersByUser' =>  $ordersByUser
         ]);
     }
 

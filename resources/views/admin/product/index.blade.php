@@ -63,8 +63,11 @@
 <script>
 $(".delete-btn").click(e => {
     const itemId = e.target.getAttribute('data-id')
-    deleteRow(itemId, 'products')
-    $('#row-' + itemId).remove()
+    if (confirm("Are you sure you want to delete this item?")) {
+      deleteRow(itemId, 'products')
+      $('#row-' + itemId).remove()
+    }
+   
 });
 </script>
 @endsection

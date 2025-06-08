@@ -81,9 +81,9 @@
                                     
                                     <!-- product button -->
                                     <div class="button-set">
-                                        <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view" data-toggle="modal" data-target="#content_quickview">
+                                        {{-- <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view" data-toggle="modal" data-target="#content_quickview">
                                             <i class="icon anm anm-search-plus-r"></i>
-                                        </a>
+                                        </a> --}}
                                         <!-- Start product button -->
                                         <form class="variants add" action="#" method="post">
                                             <button data-id="{{ $product->id }}" class="btn cartIcon btn-addto-cart" type="button" tabindex="0"><i data-id="{{ $product->id }}" class="icon anm anm-bag-l"></i></button>
